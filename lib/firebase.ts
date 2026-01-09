@@ -1,23 +1,25 @@
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-import { getAuth } from "firebase/auth";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+// src/lib/firebase.ts
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+import { initializeApp, getApps } from "firebase/app"
+import { getAnalytics } from "firebase/analytics"
+import { getAuth } from "firebase/auth"
+
 const firebaseConfig = {
-  apiKey: "AIzaSyBz-pNVyDpbzPAO-v9UmPn5jlzjQi7RJCQ",
-  authDomain: "study-nest-f5fdb.firebaseapp.com",
-  projectId: "study-nest-f5fdb",
-  storageBucket: "study-nest-f5fdb.firebasestorage.app",
-  messagingSenderId: "576832588664",
-  appId: "1:576832588664:web:a03103466952f0d156168d",
-  measurementId: "G-Y1GP9CRCQZ"
-};
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY!,
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN!,
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID!,
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET!,
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID!,
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID!,
+  measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID!,
+}
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-export const auth = getAuth(app);
+// Prevent re-initialization during hot reloads
+const app = getApps().length ? getApps()[0] : initializeApp(firebaseConfig)
+
+// Analytics should only run in the browser
+if (typeof window !== "undefined") {
+  getAnalytics(app)
+}
+
+export const auth = getAuth(app)
