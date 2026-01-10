@@ -21,7 +21,7 @@ export default function Dashboard() {
   const [activeTab, setActiveTab] = useState('Overview')
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-zinc-100 flex font-sans selection:bg-indigo-500 selection:text-white">
+    <div className="min-h-screen text-zinc-100 flex font-sans selection:bg-indigo-500 selection:text-white bg-[#0a0a0a] bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.25),rgba(255,255,255,0))]">
       
       {/* Sidebar Navigation */}
       <aside className="w-64 border-r border-zinc-800 bg-zinc-900/30 backdrop-blur-xl shrink-0 hidden md:flex flex-col">
